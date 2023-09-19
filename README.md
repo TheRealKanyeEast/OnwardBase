@@ -1,4 +1,4 @@
 # Onward Menu Base
 
-Made by KanyeEast.
+Made by KanyeEast.\
 Credits to Stash for the VMTHook Class
