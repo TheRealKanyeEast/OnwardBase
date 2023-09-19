@@ -60,13 +60,15 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Common.hpp</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\Include;$(SolutionDir)Source\Rage\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <ForcedIncludeFiles>Common.hpp;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(CoreLibraryDependencies);discord-rpc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Libraries\Binaries;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -80,31 +82,282 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Common.hpp</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\Include;$(SolutionDir)Source\Rage\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <ForcedIncludeFiles>Common.hpp;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(CoreLibraryDependencies);discord-rpc.lib;MinHook.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Libraries\Binaries;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Discord RPC\Discord.cpp" />
     <ClCompile Include="Source\Common.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Common.hpp</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Common.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="Source\Hooking\Hooking.cpp" />
+    <ClCompile Include="Source\Hooking\Hooks\DirectX.cpp" />
     <ClCompile Include="Source\Logger\Logger.cpp" />
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Memory\Patterns.cpp" />
+    <ClCompile Include="Source\Rage\Classes\classes.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Discord RPC\Discord.hpp" />
+    <ClInclude Include="Libraries\Include\Discord\discord_register.h" />
+    <ClInclude Include="Libraries\Include\Discord\discord_rpc.h" />
     <ClInclude Include="Source\Common.hpp" />
+    <ClInclude Include="Source\Hooking\Hooking.hpp" />
+    <ClInclude Include="Source\Hooking\VMTHook.hpp" />
     <ClInclude Include="Source\Logger\Logger.hpp" />
+    <ClInclude Include="Source\Memory\Functions.h" />
+    <ClInclude Include="Source\Memory\Memory.hpp" />
+    <ClInclude Include="Source\Memory\Patterns.hpp" />
+    <ClInclude Include="Source\Rage\Classes\base\atRTTI.hpp" />
+    <ClInclude Include="Source\Rage\Classes\base\CBaseModelInfo.hpp" />
+    <ClInclude Include="Source\Rage\Classes\base\CNavigation.hpp" />
+    <ClInclude Include="Source\Rage\Classes\base\CObject.hpp" />
+    <ClInclude Include="Source\Rage\Classes\base\datBase.hpp" />
+    <ClInclude Include="Source\Rage\Classes\base\fwArchetype.hpp" />
+    <ClInclude Include="Source\Rage\Classes\base\fwArchetypeDef.hpp" />
+    <ClInclude Include="Source\Rage\Classes\base\fwExtensibleBase.hpp" />
+    <ClInclude Include="Source\Rage\Classes\base\fwExtension.hpp" />
+    <ClInclude Include="Source\Rage\Classes\base\fwExtensionContainer.hpp" />
+    <ClInclude Include="Source\Rage\Classes\base\fwRefAwareBase.hpp" />
+    <ClInclude Include="Source\Rage\Classes\base\fwRefAwareBaseImpl.hpp" />
+    <ClInclude Include="Source\Rage\Classes\base\HashTable.hpp" />
+    <ClInclude Include="Source\Rage\Classes\base\pgBase.hpp" />
+    <ClInclude Include="Source\Rage\Classes\base\pgDictionary.hpp" />
+    <ClInclude Include="Source\Rage\Classes\base\phArchetype.hpp" />
+    <ClInclude Include="Source\Rage\Classes\base\phBound.hpp" />
+    <ClInclude Include="Source\Rage\Classes\base\phBoundCapsule.hpp" />
+    <ClInclude Include="Source\Rage\Classes\base\phBoundComposite.hpp" />
+    <ClInclude Include="Source\Rage\Classes\camera\CCameraAngles.hpp" />
+    <ClInclude Include="Source\Rage\Classes\camera\CCameraManagerAngles.hpp" />
+    <ClInclude Include="Source\Rage\Classes\camera\CGameCameraAngles.hpp" />
+    <ClInclude Include="Source\Rage\Classes\draw_handlers\CEntityDrawHandler.hpp" />
+    <ClInclude Include="Source\Rage\Classes\draw_handlers\CObjectDrawHandler.hpp" />
+    <ClInclude Include="Source\Rage\Classes\draw_handlers\CPedDrawHandler.hpp" />
+    <ClInclude Include="Source\Rage\Classes\draw_handlers\CVehicleDrawHandler.hpp" />
+    <ClInclude Include="Source\Rage\Classes\draw_handlers\fwDrawData.hpp" />
+    <ClInclude Include="Source\Rage\Classes\entities\CAttackers.hpp" />
+    <ClInclude Include="Source\Rage\Classes\entities\CDynamicEntity.hpp" />
+    <ClInclude Include="Source\Rage\Classes\entities\CEntity.hpp" />
+    <ClInclude Include="Source\Rage\Classes\entities\CPhysical.hpp" />
+    <ClInclude Include="Source\Rage\Classes\entities\fwEntity.hpp" />
+    <ClInclude Include="Source\Rage\Classes\enums\eExplosionTag.hpp" />
+    <ClInclude Include="Source\Rage\Classes\enums\eHandlingType.hpp" />
+    <ClInclude Include="Source\Rage\Classes\game_files\CGameConfig.hpp" />
+    <ClInclude Include="Source\Rage\Classes\misc\CTunables.hpp" />
+    <ClInclude Include="Source\Rage\Classes\misc\vfx\TimecycleKeyframeData.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\CProjectBaseSyncDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\CProjectSyncTree.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\netSyncDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\netSyncNodeBase.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\netSyncParentNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\netSyncTree.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\NodeCommonDataOperations.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\automobile\CAutomobileCreationNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\CPedComponents.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\door\CDoorCreationDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\door\CDoorMovementDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\door\CDoorScriptGameStateDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\door\CDoorScriptInfoDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\dynamic_entity\CDynamicEntityGameStateDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\entity\CEntityOrientationDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\entity\CEntityScriptGameStateDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\entity\CEntityScriptInfoDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\heli\CHeliControlDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\heli\CHeliHealthDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\object\CObjectCreationDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\ped\CPedAIDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\ped\CPedAppearanceDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\ped\CPedAttachDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\ped\CPedComponentReservationDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\ped\CPedCreationDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\ped\CPedGameStateDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\ped\CPedHealthDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\ped\CPedInventoryDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\ped\CPedMovementDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\ped\CPedMovementGroupDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\ped\CPedOrientationDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\ped\CPedScriptCreationDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\ped\CPedTaskSequenceDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\ped\CPedTaskSpecificDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\ped\CPedTaskTreeDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\physical\CPhysicalAngVelocityDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\physical\CPhysicalAttachDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\physical\CPhysicalGameStateDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\physical\CPhysicalHealthDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\physical\CPhysicalMigrationDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\physical\CPhysicalScriptGameStateDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\physical\CPhysicalScriptMigrationDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\physical\CPhysicalVelocityDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\pickup\CPickupCreationDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\pickup_placement\CPickupPlacementCreationDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\player\CPlayerAmbientModelStreamingNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\player\CPlayerAppearanceDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\player\CPlayerCameraDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\player\CPlayerCreationDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\player\CPlayerExtendedGameStateNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\player\CPlayerGamerDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\player\CPlayerGameStateDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\player\CPlayerPedGroupDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\player\CPlayerSectorPosNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\player\CPlayerWantedAndLOSDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\proximity_migrateable\CGlobalFlagsDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\proximity_migrateable\CMigrationDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\proximity_migrateable\CSectorDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\proximity_migrateable\CSectorPositionDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\task\CClonedGeneralSweepInfo.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\task\ClonedTakeOffPedVariationInfo.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\train\CTrainGameStateDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\vehicle\CVehicleComponentReservationDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\vehicle\CVehicleControlDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\vehicle\CVehicleCreationDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\vehicle\CVehicleDamageStatusDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\vehicle\CVehicleGadgetDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\vehicle\CVehicleGameStateDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\vehicle\CVehicleHealthDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\vehicle\CVehicleProximityMigrationDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\vehicle\CVehicleSteeringDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\nodes\vehicle\CVehicleTaskDataNode.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\trees\CDynamicEntitySyncTreeBase.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\trees\CEntitySyncTreeBase.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\trees\CPhysicalSyncTreeBase.hpp" />
+    <ClInclude Include="Source\Rage\Classes\netsync\trees\CProximityMigrateableSyncTreeBase.hpp" />
+    <ClInclude Include="Source\Rage\Classes\network\CCommunications.hpp" />
+    <ClInclude Include="Source\Rage\Classes\network\ChatData.hpp" />
+    <ClInclude Include="Source\Rage\Classes\network\CJoinRequestContext.hpp" />
+    <ClInclude Include="Source\Rage\Classes\network\ClanData.hpp" />
+    <ClInclude Include="Source\Rage\Classes\network\CMsgJoinResponse.hpp" />
+    <ClInclude Include="Source\Rage\Classes\network\CMsgTextMessage.hpp" />
+    <ClInclude Include="Source\Rage\Classes\network\CNetComplaintMgr.hpp" />
+    <ClInclude Include="Source\Rage\Classes\network\CNetGamePlayer.hpp" />
+    <ClInclude Include="Source\Rage\Classes\network\CNetGamePlayerDataMsg.hpp" />
+    <ClInclude Include="Source\Rage\Classes\network\CNetworkPlayerMgr.hpp" />
+    <ClInclude Include="Source\Rage\Classes\network\netConnection.hpp" />
+    <ClInclude Include="Source\Rage\Classes\network\netObject.hpp" />
+    <ClInclude Include="Source\Rage\Classes\network\netPeerAddress.hpp" />
+    <ClInclude Include="Source\Rage\Classes\network\netPlayer.hpp" />
+    <ClInclude Include="Source\Rage\Classes\network\netPlayerMgrBase.hpp" />
+    <ClInclude Include="Source\Rage\Classes\network\netTime.hpp" />
+    <ClInclude Include="Source\Rage\Classes\network\Network.hpp" />
+    <ClInclude Include="Source\Rage\Classes\network\RemoteGamerInfoMsg.hpp" />
+    <ClInclude Include="Source\Rage\Classes\network\snConnectToPeerTask.hpp" />
+    <ClInclude Include="Source\Rage\Classes\network\snSession.hpp" />
+    <ClInclude Include="Source\Rage\Classes\ped\CPed.hpp" />
+    <ClInclude Include="Source\Rage\Classes\ped\CPedBoneInfo.hpp" />
+    <ClInclude Include="Source\Rage\Classes\ped\CPedFactory.hpp" />
+    <ClInclude Include="Source\Rage\Classes\ped\CPedIntelligence.hpp" />
+    <ClInclude Include="Source\Rage\Classes\ped\CPedInventory.hpp" />
+    <ClInclude Include="Source\Rage\Classes\ped\CPedModelInfo.hpp" />
+    <ClInclude Include="Source\Rage\Classes\ped\CPedWeaponManager.hpp" />
+    <ClInclude Include="Source\Rage\Classes\player\CNonPhysicalPlayerData.hpp" />
+    <ClInclude Include="Source\Rage\Classes\player\CPlayerAngles.hpp" />
+    <ClInclude Include="Source\Rage\Classes\player\CPlayerCameraData.hpp" />
+    <ClInclude Include="Source\Rage\Classes\player\CPlayerInfo.hpp" />
+    <ClInclude Include="Source\Rage\Classes\rage\atArray.hpp" />
+    <ClInclude Include="Source\Rage\Classes\rage\atReferenceCounter.hpp" />
+    <ClInclude Include="Source\Rage\Classes\rage\atSingleton.hpp" />
+    <ClInclude Include="Source\Rage\Classes\rage\joaat.hpp" />
+    <ClInclude Include="Source\Rage\Classes\rage\rlGamerHandle.hpp" />
+    <ClInclude Include="Source\Rage\Classes\rage\rlGamerInfo.hpp" />
+    <ClInclude Include="Source\Rage\Classes\rage\rlGamerInfoBase.hpp" />
+    <ClInclude Include="Source\Rage\Classes\rage\rlMetric.hpp" />
+    <ClInclude Include="Source\Rage\Classes\rage\rlQueryPresenceAttributesContext.hpp" />
+    <ClInclude Include="Source\Rage\Classes\rage\rlScHandle.hpp" />
+    <ClInclude Include="Source\Rage\Classes\rage\rlSessionByGamerTaskResult.hpp" />
+    <ClInclude Include="Source\Rage\Classes\rage\rlSessionInfo.hpp" />
+    <ClInclude Include="Source\Rage\Classes\rage\rlTaskStatus.hpp" />
+    <ClInclude Include="Source\Rage\Classes\rage\scrValue.hpp" />
+    <ClInclude Include="Source\Rage\Classes\rage\sysMemAllocator.hpp" />
+    <ClInclude Include="Source\Rage\Classes\rage\vector.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\CGameScriptObjInfo.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\dataList.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\globals\GlobalPlayerBD.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\globals\GPBD_FM.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\globals\GPBD_FM_3.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\globals\GPBD_Kicking.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\globals\GPBD_MissionName.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\globals\GSBD.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\globals\GSBD_BlockB.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\globals\GSBD_FM.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\globals\GSBD_Kicking.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\globals\GSBD_PropertyInstances.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\globals\g_AMC_playerBD.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\GtaThread.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\HudColor.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\MPScriptData.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\scriptHandler.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\scriptHandlerMgr.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\scriptHandlerNetComponent.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\scriptId.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\scriptIdBase.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\scriptResource.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\scrNativeHandler.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\scrNativeRegistration.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\scrNativeRegistrationTable.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\scrProgram.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\scrProgramTable.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\scrProgramTableEntry.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\scrThread.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\scrThreadContext.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\scrVector.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\Timer.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\tlsContext.hpp" />
+    <ClInclude Include="Source\Rage\Classes\script\types.hpp" />
+    <ClInclude Include="Source\Rage\Classes\security\ObfVar.hpp" />
+    <ClInclude Include="Source\Rage\Classes\security\RageSecurity.hpp" />
+    <ClInclude Include="Source\Rage\Classes\socialclub\FriendInfo.hpp" />
+    <ClInclude Include="Source\Rage\Classes\socialclub\FriendRegistry.hpp" />
+    <ClInclude Include="Source\Rage\Classes\socialclub\ScInfo.hpp" />
+    <ClInclude Include="Source\Rage\Classes\stats\CPlayerCardStats.hpp" />
+    <ClInclude Include="Source\Rage\Classes\stats\CStatsSerializationContext.hpp" />
+    <ClInclude Include="Source\Rage\Classes\ui\blip_t.hpp" />
+    <ClInclude Include="Source\Rage\Classes\ui\CBlipEntry.hpp" />
+    <ClInclude Include="Source\Rage\Classes\ui\CBlipList.hpp" />
+    <ClInclude Include="Source\Rage\Classes\vehicle\CAdvancedData.hpp" />
+    <ClInclude Include="Source\Rage\Classes\vehicle\CBaseSubHandlingData.hpp" />
+    <ClInclude Include="Source\Rage\Classes\vehicle\CCarHandlingData.hpp" />
+    <ClInclude Include="Source\Rage\Classes\vehicle\CDriveBySeatDefault.hpp" />
+    <ClInclude Include="Source\Rage\Classes\vehicle\CDriveByWeaponGroupDefault.hpp" />
+    <ClInclude Include="Source\Rage\Classes\vehicle\CDrivebyWeaponGroups.hpp" />
+    <ClInclude Include="Source\Rage\Classes\vehicle\CHandlingData.hpp" />
+    <ClInclude Include="Source\Rage\Classes\vehicle\CHandlingObject.hpp" />
+    <ClInclude Include="Source\Rage\Classes\vehicle\CTrainConfig.hpp" />
+    <ClInclude Include="Source\Rage\Classes\vehicle\CVehicle.hpp" />
+    <ClInclude Include="Source\Rage\Classes\vehicle\CVehicleDriveByAnimInfo.hpp" />
+    <ClInclude Include="Source\Rage\Classes\vehicle\CVehicleDriveByMetadataMgr.hpp" />
+    <ClInclude Include="Source\Rage\Classes\vehicle\CVehicleLayoutMetaData.hpp" />
+    <ClInclude Include="Source\Rage\Classes\vehicle\CVehicleModelInfo.hpp" />
+    <ClInclude Include="Source\Rage\Classes\vehicle\CVehicleModelInfoLayout.hpp" />
+    <ClInclude Include="Source\Rage\Classes\vehicle\CVehicleSeatAnimInfo.hpp" />
+    <ClInclude Include="Source\Rage\Classes\vehicle\CVehicleSeatAnimInfos.hpp" />
+    <ClInclude Include="Source\Rage\Classes\vehicle\CVehicleSeatMetadataMgr.hpp" />
+    <ClInclude Include="Source\Rage\Classes\weapon\CAmmoInfo.hpp" />
+    <ClInclude Include="Source\Rage\Classes\weapon\CAmmoProjectileInfo.hpp" />
+    <ClInclude Include="Source\Rage\Classes\weapon\CAmmoRocketInfo.hpp" />
+    <ClInclude Include="Source\Rage\Classes\weapon\CAmmoThrownInfo.hpp" />
+    <ClInclude Include="Source\Rage\Classes\weapon\CHomingRocketParams.hpp" />
+    <ClInclude Include="Source\Rage\Classes\weapon\CItemInfo.hpp" />
+    <ClInclude Include="Source\Rage\Classes\weapon\CWeaponBoneId.hpp" />
+    <ClInclude Include="Source\Rage\Classes\weapon\CWeaponInfo.hpp" />
+    <ClInclude Include="Source\Rage\LocalPlayer.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Libraries\Binaries\discord-rpc.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

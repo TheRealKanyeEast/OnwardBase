@@ -41,6 +41,6 @@ namespace Onward
 
 	namespace Log
 	{
-		Logger* GetInstance();	
+		Logger* GetInstance();
 	}
 }
