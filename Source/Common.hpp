@@ -28,7 +28,7 @@
 #include "Memory/Patterns.hpp"
 
 #pragma comment(lib, "discord-rpc.lib")
-//#pragma comment(lib, "minhook.lib")
+#pragma comment(lib, "minhook.lib")
 
 namespace Onward
 {
