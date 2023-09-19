@@ -18,7 +18,7 @@ namespace Onward
 		SetConsoleCP(CP_UTF8);
 		SetConsoleOutputCP(CP_UTF8);
 
-		m_Console.open("$CONOUT");
+		m_Console.open("CONOUT$");
 
 		m_File.open(m_FilePath, std::ios_base::out | std::ios_base::app);
 	}
@@ -48,8 +48,8 @@ namespace Onward
 		std::uninitialized_fill_n(messageBuffer.get(), messageLength, '\0');
 		std::vsnprintf(messageBuffer.get(), messageLength, format, args);
 
-		m_File << prefix << messageBuffer.get() << std::endl;
-		m_Console << prefix << messageBuffer.get() << std::endl;
+		m_File << prefixFinal << messageBuffer.get() << std::endl;
+		m_Console << prefixFinal << messageBuffer.get() << std::endl;
 	}
 
 	void Logger::Custom(eLogColor logColor, const char* prefix, const char* format, ...)

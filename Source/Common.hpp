@@ -25,7 +25,7 @@ namespace Onward
 {
 	using namespace std::chrono_literals;
 
-	inline std::atomic<bool> g_Running{};
+	inline std::atomic<bool> g_Running = true;
 
 	inline HMODULE g_Module{};
 }
