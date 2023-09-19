@@ -27,9 +27,6 @@
 #include "Logger/Logger.hpp"
 #include "Memory/Patterns.hpp"
 
-#pragma comment(lib, "discord-rpc.lib")
-#pragma comment(lib, "minhook.lib")
-
 namespace Onward
 {
 	using namespace std::chrono_literals;
