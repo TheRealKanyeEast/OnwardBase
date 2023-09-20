@@ -8,6 +8,7 @@ namespace Onward
 	public:
 		VMTHook() = default;
 		~VMTHook() = default;
+		bool m_Created = false;
 		/**
 		 * \brief Initializes the hook class
 		 * \param object The object to be hooked
@@ -21,6 +22,8 @@ namespace Onward
 			m_New = std::make_unique<std::uintptr_t[]>(m_NumFuncs + 1);
 
 			std::copy_n(m_Original - 1, m_NumFuncs + 1, m_New.get());
+
+			m_Created = true;
 		}
 
 		/**

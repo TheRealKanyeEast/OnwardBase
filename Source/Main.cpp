@@ -1,6 +1,7 @@
 #include "Common.hpp"
 
 #include "Hooking/Hooking.hpp"
+#include "Memory/Patterns.hpp"
 #include "Discord RPC/Discord.hpp"
 
 void Unload()
@@ -53,6 +54,25 @@ DWORD Main(LPVOID handle)
 		Sleep(4500);
 		Unload();
 	}
+	else
+	{
+		#ifndef ONWARD_DEBUG
+			g_Logger->Custom(eLogColor::Gray, "Patterns", "Found %i/%i Patterns", NumPointersFound, NumPointers);
+		#endif
+	}
+
+	if (strcmp(ONWARD_SUPPORT_VERSION, g_Patterns->m_GameBuild) != 0)
+	{
+		#ifdef ONWARD_DEBUG
+			g_Logger->Custom(eLogColor::Red, "Main", "'%s' ---> '%s' Unsupported Version! Contact Support if you think this is a mistake.", g_Patterns->m_GameBuild, ONWARD_SUPPORT_VERSION);
+		#else
+			g_Logger->Custom(eLogColor::Red, "Main", "Unsupported Version! Contact Support if you think this is a mistake.");
+		#endif
+		Sleep(6000);
+		Discord::Shutdown();
+		g_Logger->Uninitialize();
+		FreeLibraryAndExitThread(g_Module, 0);
+	}
 
 	WaitForLoad();
 
@@ -62,6 +82,7 @@ DWORD Main(LPVOID handle)
 	Sleep(100);
 
 	g_Logger->Custom(eLogColor::Cyan, "Main", "%s | Version: %s | Loaded", ONWARD_NAME, ONWARD_VERSION);
+	g_Logger->Custom(eLogColor::Magneta, "Game Version", "'%s'", g_Patterns->m_GameBuild);
 
 	while (g_Running) {
 

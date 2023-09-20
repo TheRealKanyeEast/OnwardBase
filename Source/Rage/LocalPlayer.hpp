@@ -5,8 +5,8 @@ namespace Onward
 {
 	struct LocalPlayer
 	{
-		std::string Name;
-		bool isOnline;
+		std::string Name = "Unknown";
+		bool isOnline = false;
 		int numConnectedPlayers = 1;
 	};
 }

@@ -1,4 +1,5 @@
 #include "Hooking.hpp"
+#include "../Memory/Patterns.hpp"
 
 #include <MinHook/MinHook.h>
 
@@ -20,7 +21,11 @@ namespace Onward
 	{
 		//g_Logger->Custom(eLogColor::Green, "Hooking Destroyed", "Not Here");
 
-		DXHook.Disable();
+		if (DXHook.m_Created)
+		{
+			DXHook.Disable();
+		}
+
 		MH_DisableHook(MH_ALL_HOOKS);
 		MH_Uninitialize();
 	}

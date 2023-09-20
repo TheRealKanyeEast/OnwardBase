@@ -82,7 +82,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Common.hpp</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\Include;$(SolutionDir)Source\Rage\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\Include;$(SolutionDir)Libraries\Include\ImGui;$(SolutionDir)Source\Rage\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <ForcedIncludeFiles>Common.hpp;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -99,6 +99,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Libraries\Include\ImGui\imgui.cpp" />
+    <ClCompile Include="Libraries\Include\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="Libraries\Include\ImGui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="Libraries\Include\ImGui\imgui_impl_win32.cpp" />
+    <ClCompile Include="Libraries\Include\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="Libraries\Include\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="Libraries\Include\ImGui\misc\cpp\imgui_stdlib.cpp" />
+    <ClCompile Include="Libraries\Include\ImGui\misc\fonts\binary_to_compressed_c.cpp" />
     <ClCompile Include="Source\Discord RPC\Discord.cpp" />
     <ClCompile Include="Source\Common.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -112,8 +120,20 @@
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Memory\Patterns.cpp" />
     <ClCompile Include="Source\Rage\Classes\classes.cpp" />
+    <ClCompile Include="Source\UI\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Libraries\Include\ImGui\imconfig.h" />
+    <ClInclude Include="Libraries\Include\ImGui\imgui.h" />
+    <ClInclude Include="Libraries\Include\ImGui\imgui_impl_dx11.h" />
+    <ClInclude Include="Libraries\Include\ImGui\imgui_impl_win32.h" />
+    <ClInclude Include="Libraries\Include\ImGui\imgui_internal.h" />
+    <ClInclude Include="Libraries\Include\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="Libraries\Include\ImGui\imstb_textedit.h" />
+    <ClInclude Include="Libraries\Include\ImGui\imstb_truetype.h" />
+    <ClInclude Include="Libraries\Include\ImGui\misc\cpp\imgui_stdlib.h" />
+    <ClInclude Include="Libraries\Include\ImGui\misc\single_file\imgui_single_file.h" />
+    <ClInclude Include="Libraries\Include\MinHook\MinHook.h" />
     <ClInclude Include="Source\Discord RPC\Discord.hpp" />
     <ClInclude Include="Libraries\Include\Discord\discord_register.h" />
     <ClInclude Include="Libraries\Include\Discord\discord_rpc.h" />
@@ -355,6 +375,7 @@
     <ClInclude Include="Source\Rage\Classes\weapon\CWeaponBoneId.hpp" />
     <ClInclude Include="Source\Rage\Classes\weapon\CWeaponInfo.hpp" />
     <ClInclude Include="Source\Rage\LocalPlayer.hpp" />
+    <ClInclude Include="Source\UI\UIManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Libraries\Binaries\discord-rpc.lib" />

@@ -20,12 +20,12 @@
 #define ONWARD_NAME "Onward"
 #define ONWARD_VERSION "1.0.0"
 
-#define ONWARD_DEBUG
+//#define ONWARD_DEBUG
 #define ONWARD_SUPPORT_VERSION "1.67"
 
 #include "Rage/LocalPlayer.hpp"
-#include "Logger/Logger.hpp"
 #include "Memory/Patterns.hpp"
+#include "Logger/Logger.hpp"
 
 namespace Onward
 {
@@ -38,7 +38,7 @@ namespace Onward
 	inline LocalPlayer g_LocalPlayer{};
 
 	inline Logger* g_Logger{};
-	inline Pointers* g_Patterns{};
+	inline Pointers* g_Patterns;
 
 	inline bool FoundPointers = true;
 	inline int NumPointers = 0;
