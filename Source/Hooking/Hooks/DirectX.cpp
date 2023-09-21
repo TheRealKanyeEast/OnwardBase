@@ -10,17 +10,17 @@ namespace Onward
 {
 	HRESULT Hooks::Present(IDXGISwapChain* this_, UINT syncInterval, UINT flags)
 	{
-		if (g_UIManager->m_Opened)
+		if (g_UIManager->m_Opened && g_Running)
 		{
-			//ImGui_ImplDX11_NewFrame();
-			//ImGui_ImplWin32_NewFrame();
-			//ImGui::NewFrame();
+			ImGui_ImplDX11_NewFrame();
+			ImGui_ImplWin32_NewFrame();
+			ImGui::NewFrame();
 			{
-				//g_UIManager->OnTick();
+				g_UIManager->OnTick();
 			}
 			//ImGui::EndFrame();
-			//ImGui::Render();
-			//ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+			ImGui::Render();
+			ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 		}
 
 		return g_Hooking->DXHook.GetOriginal<decltype(&Present)>(8)(this_, syncInterval, flags);
@@ -28,13 +28,17 @@ namespace Onward
 
 	HRESULT Hooks::ResizeBuffers(IDXGISwapChain* this_, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags)
 	{
-		//ImGui_ImplDX11_InvalidateDeviceObjects();
-		auto result = g_Hooking->DXHook.GetOriginal<decltype(&ResizeBuffers)>(13)(this_, BufferCount, Width, Height, NewFormat, SwapChainFlags);
-		if (SUCCEEDED(result))
+		if (g_Running)
 		{
-			//ImGui_ImplDX11_CreateDeviceObjects();
+			ImGui_ImplDX11_InvalidateDeviceObjects();
+			const auto result = g_Hooking->DXHook.GetOriginal<decltype(&ResizeBuffers)>(13)(this_, BufferCount, Width, Height, NewFormat, SwapChainFlags);
+			if (SUCCEEDED(result))
+			{
+				ImGui_ImplDX11_CreateDeviceObjects();
+			}
+			return result;
 		}
 
-		return result;
+		return g_Hooking->DXHook.GetOriginal<decltype(&ResizeBuffers)>(13)(this_, BufferCount, Width, Height, NewFormat, SwapChainFlags);
 	}
 }

@@ -3,10 +3,13 @@
 #include "Hooking/Hooking.hpp"
 #include "Memory/Patterns.hpp"
 #include "Discord RPC/Discord.hpp"
+#include "UI/UIManager.hpp"
 
 void Unload()
 {
 	using namespace Onward;
+
+	g_UIManager->Uninitialize();
 
 	Discord::Shutdown();
 
@@ -78,6 +81,9 @@ DWORD Main(LPVOID handle)
 
 	g_Hooking = Hook::GetInstance();
 	g_Hooking->Initialize();
+
+	g_UIManager = UI::GetInstance();
+	g_UIManager->Initialize();
 
 	Sleep(100);
 

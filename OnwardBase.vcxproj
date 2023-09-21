@@ -120,6 +120,7 @@
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Memory\Patterns.cpp" />
     <ClCompile Include="Source\Rage\Classes\classes.cpp" />
+    <ClCompile Include="Source\UI\Fonts\Raleway.cpp" />
     <ClCompile Include="Source\UI\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -375,6 +376,7 @@
     <ClInclude Include="Source\Rage\Classes\weapon\CWeaponBoneId.hpp" />
     <ClInclude Include="Source\Rage\Classes\weapon\CWeaponInfo.hpp" />
     <ClInclude Include="Source\Rage\LocalPlayer.hpp" />
+    <ClInclude Include="Source\UI\Fonts\Fonts.h" />
     <ClInclude Include="Source\UI\UIManager.hpp" />
   </ItemGroup>
   <ItemGroup>
