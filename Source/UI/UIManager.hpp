@@ -9,7 +9,7 @@ namespace Onward
 	{
 	public:
 		void OnTick();
-		static LRESULT WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
+		void WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 
 		void Initialize();
 		void Uninitialize();
@@ -19,6 +19,7 @@ namespace Onward
 		ImFontConfig m_FontConfig{};
 		ImFont* Raleway = nullptr;
 		ImFont* Segoe = nullptr;
+		ImFont* Monospace;
 	private:
 		IDXGISwapChain* m_Swapchain{};
 		ID3D11Device* m_Device{};

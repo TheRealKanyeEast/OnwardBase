@@ -7,7 +7,7 @@ namespace Onward
 	{
 		using namespace Memory;
 
-		NumPointers = 5;
+		NumPointers = 6;
 
 		Scan("Game State", "83 3D ? ? ? ? ? 75 17 8B 43 20", [this](Handle Ptr)
 		{
@@ -24,7 +24,7 @@ namespace Onward
 			m_IsSessionStarted = Ptr.Add(3).Rip().As<decltype(m_IsSessionStarted)>();
 		});
 
-		//m_GameWindow = FindWindowA("grcWindow", "Grand Theft Auto V");
+		m_GameWindow = FindWindowA("grcWindow", "Grand Theft Auto V");
 
 		Scan("Swapchain", "44 38 35 ? ? ? ? 48 8B 01", [this](Handle Ptr)
 		{
@@ -34,6 +34,21 @@ namespace Onward
 		Scan("Game Build Version", "48 83 EC 60 48 8D 0D ? ? ? ? E8", [this](Handle Ptr)
 		{
 			m_GameBuild = Ptr.Sub(17).Add(268).Rip().As<decltype(m_GameBuild)>();
+		});
+
+		Scan("Window Process", "44 8B E2 4C 8B E9 3B D0", [this](Handle Ptr)
+		{
+			m_WndProc = Ptr.Sub(52).As<decltype(m_WndProc)>();
+		});
+
+		Scan("Get Native Handler", "48 8D 0D ? ? ? ? 48 8B 14 FA E8 ? ? ? ? 48 85 C0 75 0A", [this](Handle Ptr)
+		{
+			m_GetNativeHandler = Ptr.Add(12).Rip().As<decltype(m_GetNativeHandler)>();
+		});
+
+		Scan("Native Registration Table", "76 32 48 8B 53 40 48 8D 0D", [this](Handle Ptr)
+		{
+			m_NativeRegistrationTable = Ptr.Add(9).Rip().As<decltype(m_NativeRegistrationTable)>();
 		});
 	}
 

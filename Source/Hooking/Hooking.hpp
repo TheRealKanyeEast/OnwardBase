@@ -8,6 +8,8 @@ namespace Onward
 	{
 		static HRESULT Present(IDXGISwapChain* this_, UINT syncInterval, UINT flags);
 		static HRESULT ResizeBuffers(IDXGISwapChain* this_, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags);
+
+		static LRESULT WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	};
 
 	class Hooking
@@ -19,6 +21,7 @@ namespace Onward
 		friend struct Hooks;
 	private:
 		VMTHook DXHook;
+		void* m_OriginalWndProc{};
 	};
 
 	namespace Hook

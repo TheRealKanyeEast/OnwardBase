@@ -2,6 +2,8 @@
 #include "../Common.hpp"
 
 #include "ped/CPedFactory.hpp"
+#include "script/scrNativeRegistrationTable.hpp"
+#include "Functions.h"
 
 namespace Onward
 {
@@ -18,7 +20,12 @@ namespace Onward
 
 		CPedFactory* m_CPedFactory;
 
+		rage::scrNativeRegistrationTable* m_NativeRegistrationTable;
+		GetNativeHandler* m_GetNativeHandler;
+		FixVectors* m_FixVectors;
+
 		IDXGISwapChain* m_Swapchain;
+		WndProc* m_WndProc;
 	};
 
 	namespace Patterns

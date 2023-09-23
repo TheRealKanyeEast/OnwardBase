@@ -4,6 +4,7 @@
 #include "Memory/Patterns.hpp"
 #include "Discord RPC/Discord.hpp"
 #include "UI/UIManager.hpp"
+#include "Invoker/Invoker.hpp"
 
 void Unload()
 {
@@ -37,6 +38,8 @@ void WaitForLoad()
 
 		Sleep(100);
 	} while (*g_Patterns->m_GameState != eGameState::Playing);
+
+	Sleep(250);
 }
 
 DWORD Main(LPVOID handle)
@@ -71,7 +74,7 @@ DWORD Main(LPVOID handle)
 		#else
 			g_Logger->Custom(eLogColor::Red, "Main", "Unsupported Version! Contact Support if you think this is a mistake.");
 		#endif
-		Sleep(6000);
+		Sleep(5000);
 		Discord::Shutdown();
 		g_Logger->Uninitialize();
 		FreeLibraryAndExitThread(g_Module, 0);
@@ -79,11 +82,14 @@ DWORD Main(LPVOID handle)
 
 	WaitForLoad();
 
-	g_Hooking = Hook::GetInstance();
-	g_Hooking->Initialize();
+	g_Invoker = Invoker::GetInstance();
+	g_Invoker->CacheHandlers();
 
 	g_UIManager = UI::GetInstance();
 	g_UIManager->Initialize();
+
+	g_Hooking = Hook::GetInstance();
+	g_Hooking->Initialize();
 
 	Sleep(100);
 

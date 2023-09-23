@@ -21,8 +21,12 @@
 #define ONWARD_NAME "Onward"
 #define ONWARD_VERSION "1.0.0"
 
-//#define ONWARD_DEBUG
+#define ONWARD_DEBUG
 #define ONWARD_SUPPORT_VERSION "1.67"
+
+#define IMGUI_DISABLE_DEMO_WINDOWS
+#define IMGUI_DISABLE_METRICS_WINDOW
+#define IM_ASSERT(_EXPR) ((void)(_EXPR))
 
 #include "Rage/LocalPlayer.hpp"
 #include "Memory/Patterns.hpp"

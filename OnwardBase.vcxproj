@@ -82,7 +82,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Common.hpp</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\Include;$(SolutionDir)Libraries\Include\ImGui;$(SolutionDir)Source\Rage\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\Include;$(SolutionDir)Libraries\Include\ImGui\backends;$(SolutionDir)Libraries\Include\ImGui;$(SolutionDir)Source\Rage\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <ForcedIncludeFiles>Common.hpp;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -99,14 +99,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Libraries\Include\ImGui\backends\imgui_impl_dx11.cpp" />
+    <ClCompile Include="Libraries\Include\ImGui\backends\imgui_impl_win32.cpp" />
     <ClCompile Include="Libraries\Include\ImGui\imgui.cpp" />
     <ClCompile Include="Libraries\Include\ImGui\imgui_draw.cpp" />
-    <ClCompile Include="Libraries\Include\ImGui\imgui_impl_dx11.cpp" />
-    <ClCompile Include="Libraries\Include\ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="Libraries\Include\ImGui\imgui_tables.cpp" />
     <ClCompile Include="Libraries\Include\ImGui\imgui_widgets.cpp" />
-    <ClCompile Include="Libraries\Include\ImGui\misc\cpp\imgui_stdlib.cpp" />
-    <ClCompile Include="Libraries\Include\ImGui\misc\fonts\binary_to_compressed_c.cpp" />
     <ClCompile Include="Source\Discord RPC\Discord.cpp" />
     <ClCompile Include="Source\Common.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -116,6 +114,7 @@
     </ClCompile>
     <ClCompile Include="Source\Hooking\Hooking.cpp" />
     <ClCompile Include="Source\Hooking\Hooks\DirectX.cpp" />
+    <ClCompile Include="Source\Invoker\Invoker.cpp" />
     <ClCompile Include="Source\Logger\Logger.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Memory\Patterns.cpp" />
@@ -124,6 +123,8 @@
     <ClCompile Include="Source\UI\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Libraries\Include\ImGui\backends\imgui_impl_dx11.h" />
+    <ClInclude Include="Libraries\Include\ImGui\backends\imgui_impl_win32.h" />
     <ClInclude Include="Libraries\Include\ImGui\imconfig.h" />
     <ClInclude Include="Libraries\Include\ImGui\imgui.h" />
     <ClInclude Include="Libraries\Include\ImGui\imgui_impl_dx11.h" />
@@ -141,6 +142,8 @@
     <ClInclude Include="Source\Common.hpp" />
     <ClInclude Include="Source\Hooking\Hooking.hpp" />
     <ClInclude Include="Source\Hooking\VMTHook.hpp" />
+    <ClInclude Include="Source\Invoker\Crossmap.h" />
+    <ClInclude Include="Source\Invoker\Invoker.hpp" />
     <ClInclude Include="Source\Logger\Logger.hpp" />
     <ClInclude Include="Source\Memory\Functions.h" />
     <ClInclude Include="Source\Memory\Memory.hpp" />
