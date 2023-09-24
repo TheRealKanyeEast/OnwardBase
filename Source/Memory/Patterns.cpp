@@ -50,6 +50,21 @@ namespace Onward
 		{
 			m_NativeRegistrationTable = Ptr.Add(9).Rip().As<decltype(m_NativeRegistrationTable)>();
 		});
+
+		Scan("Script Threads", "45 33 F6 8B E9 85 C9 B8", [this](Handle Ptr)
+		{
+			m_ScriptThreads = Ptr.Sub(4).Rip().Sub(8).As<decltype(m_ScriptThreads)>();
+		});
+
+		Scan("Run Script Threads", "45 33 F6 8B E9 85 C9 B8", [this](Handle Ptr)
+		{
+			m_RunScriptThreads = Ptr.Sub(0x1F).As<RunScriptThreads>();
+		});
+
+		Scan("Fix Vectors", "83 79 18 00 48 8B D1 74 4A FF 4A 18 48 63 4A 18 48 8D 41 04 48 8B 4C CA", [this](Handle Ptr)
+		{
+			m_FixVectors = Ptr.As<FixVectors>();
+		});
 	}
 
 	namespace Patterns

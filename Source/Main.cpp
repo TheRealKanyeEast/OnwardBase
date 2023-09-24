@@ -5,24 +5,16 @@
 #include "Discord RPC/Discord.hpp"
 #include "UI/UIManager.hpp"
 #include "Invoker/Invoker.hpp"
+#include "Script/FiberPool.hpp"
+#include "Script/ScriptManager.hpp"
+
+#include "Invoker/Natives.h"
 
 void Unload()
 {
 	using namespace Onward;
 
-	g_UIManager->Uninitialize();
-
-	Discord::Shutdown();
-
-	g_Hooking->Uninitialize();
-	Sleep(3500);
-
-	Sleep(300);
-
-	g_Logger->Custom(eLogColor::Cyan, "Main", "%s | Version: %s | Unloaded", ONWARD_NAME, ONWARD_VERSION);
-	g_Logger->Uninitialize();
-
-	FreeLibraryAndExitThread(g_Module, 0);
+	
 }
 
 void WaitForLoad()
@@ -82,18 +74,24 @@ DWORD Main(LPVOID handle)
 
 	WaitForLoad();
 
-	g_Invoker = Invoker::GetInstance();
-	g_Invoker->CacheHandlers();
+	//g_Invoker = Invoker::GetInstance();
+	//g_Invoker->CacheHandlers();
 
 	g_UIManager = UI::GetInstance();
 	g_UIManager->Initialize();
+
+	auto Fiber_Pool_Instance = std::make_unique<FiberPool>(11);
 
 	g_Hooking = Hook::GetInstance();
 	g_Hooking->Initialize();
 
 	Sleep(100);
 
-	g_Logger->Custom(eLogColor::Cyan, "Main", "%s | Version: %s | Loaded", ONWARD_NAME, ONWARD_VERSION);
+	g_FiberPool->QueueJob([] {
+		g_Logger->Custom(eLogColor::Cyan, "Main", "%s | Version: %s | Loaded", ONWARD_NAME, ONWARD_VERSION);
+		AUDIO::PLAY_SOUND_FRONTEND(-1, "PROPERTY_PURCHASE", "HUD_AWARDS", false);
+	});
+
 	g_Logger->Custom(eLogColor::Magneta, "Game Version", "'%s'", g_Patterns->m_GameBuild);
 
 	while (g_Running) {
@@ -104,7 +102,25 @@ DWORD Main(LPVOID handle)
 		Sleep(100);
 	}
 
-	Unload();
+	g_ScriptManager.RemoveAllScripts();
+
+	g_UIManager->Uninitialize();
+
+	Discord::Shutdown();
+
+	g_Hooking->Uninitialize();
+	Sleep(1250);
+
+	Fiber_Pool_Instance.reset();
+
+	Sleep(1250);
+
+	Sleep(300);
+
+	g_Logger->Custom(eLogColor::Cyan, "Main", "%s | Version: %s | Unloaded", ONWARD_NAME, ONWARD_VERSION);
+	g_Logger->Uninitialize();
+
+	FreeLibraryAndExitThread(g_Module, 0);
 }
 
 BOOL WINAPI DllMain(HINSTANCE handle, DWORD reason, LPVOID reserved)

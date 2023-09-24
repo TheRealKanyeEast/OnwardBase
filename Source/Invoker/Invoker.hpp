@@ -17,6 +17,9 @@ namespace Onward
 	class NativeInvoker
 	{
 	public:
+		explicit NativeInvoker() = default;
+		~NativeInvoker() = default;
+
 		void CacheHandlers();
 
 		void BeginCall();
@@ -25,7 +28,7 @@ namespace Onward
 		template <typename T>
 		void PushArg(T&& value)
 		{
-			m_CallContext.push_arg(std::format<T>(value));
+			m_CallContext.push_arg(std::forward<T>(value));
 		}
 
 		template <typename T>
@@ -46,5 +49,5 @@ namespace Onward
 		NativeInvoker* GetInstance();
 	}
 
-	inline NativeInvoker* g_Invoker;
+	inline NativeInvoker g_Invoker;
 }

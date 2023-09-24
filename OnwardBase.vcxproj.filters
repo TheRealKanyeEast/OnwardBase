@@ -66,6 +66,15 @@
     <ClCompile Include="Source\Invoker\Invoker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Script\Script.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Script\ScriptManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Script\FiberPool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Common.hpp">
@@ -842,8 +851,29 @@
     <ClInclude Include="Source\Invoker\Crossmap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Invoker\Natives.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Invoker\Types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Script\Script.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rage\Utilities.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rage\GtaUtil.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Script\FiberPool.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="Libraries\Binaries\discord-rpc.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\Script\ScriptManager.hpp" />
   </ItemGroup>
 </Project>

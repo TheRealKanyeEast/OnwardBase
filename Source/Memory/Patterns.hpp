@@ -3,6 +3,7 @@
 
 #include "ped/CPedFactory.hpp"
 #include "script/scrNativeRegistrationTable.hpp"
+#include "script/GtaThread.hpp"
 #include "Functions.h"
 
 namespace Onward
@@ -22,7 +23,10 @@ namespace Onward
 
 		rage::scrNativeRegistrationTable* m_NativeRegistrationTable;
 		GetNativeHandler* m_GetNativeHandler;
-		FixVectors* m_FixVectors;
+		FixVectors m_FixVectors;
+
+		rage::atArray<GtaThread*>* m_ScriptThreads;
+		RunScriptThreads m_RunScriptThreads;
 
 		IDXGISwapChain* m_Swapchain;
 		WndProc* m_WndProc;

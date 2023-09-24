@@ -10,6 +10,8 @@ namespace Onward
 		static HRESULT ResizeBuffers(IDXGISwapChain* this_, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags);
 
 		static LRESULT WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+		static bool RunScriptThreads(uint32_t OperationsToExecute);
 	};
 
 	class Hooking
@@ -22,6 +24,8 @@ namespace Onward
 	private:
 		VMTHook DXHook;
 		void* m_OriginalWndProc{};
+
+		void* m_OriginalRunScriptThreads{};
 	};
 
 	namespace Hook

@@ -17,6 +17,7 @@
 #include <cstdarg>
 #include <functional>
 #include <vector>
+#include <stack>
 
 #define ONWARD_NAME "Onward"
 #define ONWARD_VERSION "1.0.0"

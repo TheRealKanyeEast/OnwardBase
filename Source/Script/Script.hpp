@@ -5,20 +5,28 @@ namespace Onward
 {
 	class Script
 	{
+		bool m_Done;
+
 	public:
-		explicit Script(std::function<void()> Function, std::optional<size_t> Stack);
+		using Func_T = std::function<void(void)>;
+
+	public:
+		explicit Script(const Func_T Function, const std::optional<size_t> Stack = std::nullopt);
 		~Script();
 
+		[[nodiscard]] bool IsDone();
+
 		void Tick();
-#undef Yield
-		void Yield(std::optional<std::chrono::high_resolution_clock::duration> Duration = std::nullopt);
+		void YieldScript(std::optional<std::chrono::high_resolution_clock::duration> Duration = std::nullopt);
 		static Script* GetCurrent();
+
 	private:
 		void FiberFunction();
+
 	private:
 		void* m_ScriptFiber;
 		void* m_MainFiber;
-		std::function<void()> m_Function;
+		Func_T m_Function;
 		std::optional<std::chrono::high_resolution_clock::time_point> m_WakeTime;
 	};
 }

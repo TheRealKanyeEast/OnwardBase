@@ -11,7 +11,7 @@ namespace Onward
 
 	void NativeInvoker::CacheHandlers()
 	{
-		for (const rage::scrNativePair Map : g_Crossmap)
+		for (const rage::scrNativePair& Map : g_Crossmap)
 		{
 			rage::scrNativeHash originalHash = Map.first;
 			rage::scrNativeHash currentHash = Map.second;
@@ -31,6 +31,9 @@ namespace Onward
 
 	void NativeInvoker::EndCall(rage::scrNativeHash Hash)
 	{
+		if (!m_Cached)
+			CacheHandlers();
+
 		auto Map = m_Cache.find(Hash);
 
 		if (Map != m_Cache.end())
@@ -44,17 +47,19 @@ namespace Onward
 			}
 			__except (EXCEPTION_EXECUTE_HANDLER)
 			{
-				#ifdef ONWARD_DEBUG
-					g_Logger->Custom(eLogColor::Red, "Native Invoker", "Failed To Invoke 0x%02X", Hash);
-				#else
-					g_Logger->Custom(eLogColor::Red, "Main", "Encountered An Unknown Error. Please Contact Support!");
-				#endif // DEBUG
+				[Hash]() {
+					#ifdef ONWARD_DEBUG
+						g_Logger->Custom(eLogColor::Red, "Native Invoker", "Failed To Invoke 0x%p", Hash);
+					#else
+						g_Logger->Custom(eLogColor::Red, "Main", "Encountered An Unknown Error. Please Contact Support!");
+					#endif // DEBUG
+				}();
 			}
 		}
 		else
 		{
 			#ifdef ONWARD_DEBUG
-				g_Logger->Custom(eLogColor::Red, "Native Invoker", "Failed To Find 0x%02X", Hash);
+				g_Logger->Custom(eLogColor::Red, "Native Invoker", "Failed To Find 0x%p", Hash);
 			#else
 				g_Logger->Custom(eLogColor::Red, "Main", "Encountered An Unknown Error. Please Contact Support!");
 			#endif // DEBUG

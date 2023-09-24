@@ -202,7 +202,7 @@ namespace Onward::Memory
 					NumPointersFound++;
 					auto result = Handle(i);
 					#ifdef ONWARD_DEBUG
-						g_Logger->Custom(eLogColor::Gray, "Pattern", "Found: %s at 0x%02x", name, result.As<uint64_t>());
+						g_Logger->Custom(eLogColor::Gray, "Pattern", "Found: %s at 0x%p", name, result.As<uint64_t>());
 					#endif
 
 					std::invoke(std::move(callback), result);

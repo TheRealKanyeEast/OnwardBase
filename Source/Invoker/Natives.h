@@ -8,13 +8,13 @@ Return Invoke(rage::scrNativeHash Hash, ArgType&&... Args)
 {
     using namespace Onward;
 
-    g_Invoker->BeginCall();
-    g_Invoker->PushArg(std::forward<ArgType>(Args), ...);
-    g_Invoker->EndCall(Hash);
+    g_Invoker.BeginCall();
+    (g_Invoker.PushArg(std::forward<ArgType>(Args)), ...);
+    g_Invoker.EndCall(Hash);
 
-    if constexpr (!std::is_void_v<Return>)
+    if constexpr (!std::is_same_v<Return, void>)
     {
-        return g_Invoker->GetReturn<Return>();
+        return g_Invoker.GetReturn<Return>();
     }
 }
 
