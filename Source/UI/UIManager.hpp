@@ -14,6 +14,8 @@ namespace Onward
 		void Initialize();
 		void Uninitialize();
 
+		bool LoadTextureFromFile(const char* filename, ID3D11Device* d3dDevice, ID3D11ShaderResourceView** out_srv, int* out_width, int* out_height);
+
 		bool m_Opened = false;
 	private:
 		ImFontConfig m_FontConfig{};

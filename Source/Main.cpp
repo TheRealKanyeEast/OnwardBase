@@ -5,8 +5,10 @@
 #include "Discord RPC/Discord.hpp"
 #include "UI/UIManager.hpp"
 #include "Invoker/Invoker.hpp"
+
 #include "Script/FiberPool.hpp"
 #include "Script/ScriptManager.hpp"
+#include "Features/FeatureManager.hpp"
 
 #include "Invoker/Natives.h"
 
@@ -82,6 +84,8 @@ DWORD Main(LPVOID handle)
 
 	auto Fiber_Pool_Instance = std::make_unique<FiberPool>(11);
 
+	auto FeatureManagerInstance = std::make_unique<FeatureManager>();
+
 	g_Hooking = Hook::GetInstance();
 	g_Hooking->Initialize();
 
@@ -101,6 +105,10 @@ DWORD Main(LPVOID handle)
 
 		Sleep(100);
 	}
+
+	Sleep(350);
+
+	FeatureManagerInstance.reset();
 
 	g_ScriptManager.RemoveAllScripts();
 

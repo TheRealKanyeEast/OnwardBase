@@ -112,6 +112,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Common.hpp</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="Source\Features\FeatureManager.cpp" />
     <ClCompile Include="Source\Hooking\Hooking.cpp" />
     <ClCompile Include="Source\Hooking\Hooks\DirectX.cpp" />
     <ClCompile Include="Source\Invoker\Invoker.cpp" />
@@ -143,6 +144,8 @@
     <ClInclude Include="Libraries\Include\Discord\discord_register.h" />
     <ClInclude Include="Libraries\Include\Discord\discord_rpc.h" />
     <ClInclude Include="Source\Common.hpp" />
+    <ClInclude Include="Source\Features\FeatureManager.hpp" />
+    <ClInclude Include="Source\Features\Local.hpp" />
     <ClInclude Include="Source\Hooking\Hooking.hpp" />
     <ClInclude Include="Source\Hooking\VMTHook.hpp" />
     <ClInclude Include="Source\Invoker\Crossmap.h" />
