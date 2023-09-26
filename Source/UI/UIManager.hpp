@@ -2,6 +2,7 @@
 #include "../Common.hpp"
 
 #include <imgui.h>
+#include "../Rage/Types.hpp"
 
 namespace Onward
 {
@@ -17,11 +18,17 @@ namespace Onward
 		bool LoadTextureFromFile(const char* filename, ID3D11Device* d3dDevice, ID3D11ShaderResourceView** out_srv, int* out_width, int* out_height);
 
 		bool m_Opened = false;
+
+	public:
+		ID3D11ShaderResourceView* m_Header{};
+		ImageDimensions m_HeaderSize = { 0, 0 };
+
 	private:
 		ImFontConfig m_FontConfig{};
 		ImFont* Raleway = nullptr;
 		ImFont* Segoe = nullptr;
 		ImFont* Monospace;
+
 	private:
 		IDXGISwapChain* m_Swapchain{};
 		ID3D11Device* m_Device{};

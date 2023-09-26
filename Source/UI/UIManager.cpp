@@ -7,7 +7,20 @@
 
 #include "Stb/std_image.h"
 
+#include <ShlObj.h>
+
 IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+inline std::string GetDocumentsPath() {
+	wchar_t folder[1024];
+	HRESULT result = SHGetFolderPathW(0, CSIDL_MYDOCUMENTS, 0, 0, folder);
+	if (SUCCEEDED(result)) {
+		char string[1024];
+		wcstombs(string, folder, 1023);
+		return string;
+	}
+	else return "";
+}
 
 namespace Onward
 {
@@ -45,6 +58,7 @@ namespace Onward
 				Raleway = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<uint8_t*>(font_raleway), sizeof(font_raleway), 20.f, &m_FontConfig);
 				ImGui::GetIO().Fonts->Build();
 			}
+
 			m_Opened = true;
 		}
 		else {
@@ -69,13 +83,11 @@ namespace Onward
 			ImVec2 Size = ImVec2((0 & 1) ? io.DisplaySize.x - 10.f : 10.f, (0 & 2) ? io.DisplaySize.y - 82.f : 82.f);
 			ImGui::SetNextWindowSize(ImVec2(800, 430));
 			ImGui::SetNextWindowPos(Size, ImGuiCond_Once);
-			ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0, 0, 0, 1.f));
-			if (ImGui::Begin("Yup"), false, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings)
+			if (ImGui::Begin("Onward Base"), false, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings)
 			{
-				ImGui::Button("Hi");
+				ImGui::Button("Hello All");
 			}
 			ImGui::End();
-			ImGui::PopStyleColor();
 		}
 	}
 

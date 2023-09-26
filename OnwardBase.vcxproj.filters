@@ -878,6 +878,9 @@
     <ClInclude Include="Source\Features\Local.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Rage\Types.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="Libraries\Binaries\discord-rpc.lib" />

@@ -8,7 +8,7 @@ namespace Onward::Features::Local
 		while (g_Running)
 		{
 			Script::GetCurrent()->YieldScript(5s);
-			g_Logger->Custom(eLogColor::Yellow, "Local Features", "Hello from local feature thread. That Took %is");
+			g_Logger->Custom(eLogColor::Yellow, "Local Features", "Hello from local feature fiber. That Took 5s.");
 		}
 	}
 }

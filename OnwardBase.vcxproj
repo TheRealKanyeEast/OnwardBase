@@ -388,6 +388,7 @@
     <ClInclude Include="Source\Rage\Classes\weapon\CWeaponInfo.hpp" />
     <ClInclude Include="Source\Rage\GtaUtil.hpp" />
     <ClInclude Include="Source\Rage\LocalPlayer.hpp" />
+    <ClInclude Include="Source\Rage\Types.hpp" />
     <ClInclude Include="Source\Rage\Utilities.hpp" />
     <ClInclude Include="Source\Script\FiberPool.hpp" />
     <ClInclude Include="Source\Script\Script.hpp" />
