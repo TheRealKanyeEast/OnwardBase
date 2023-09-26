@@ -19,6 +19,8 @@
 #include <vector>
 #include <stack>
 
+#define STB_IMAGE_IMPLEMENTATION
+
 #define ONWARD_NAME "Onward"
 #define ONWARD_VERSION "1.0.0"
 
